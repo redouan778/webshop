@@ -11,4 +11,12 @@
 |
 */
 
-Route::get('/', 'webshopController@index');
+Route::get('/index', 'ProductController@index');
+
+Auth::routes();
+
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::resource('products', 'ProductController');
+
+Route::get('/shoppingCart', 'ProductController@shoppingCart')->name('shoppingCart');
