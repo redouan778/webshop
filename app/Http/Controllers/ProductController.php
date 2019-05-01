@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 
 class ProductController extends Controller
 {
@@ -15,9 +16,10 @@ class ProductController extends Controller
 
   public function index()
   {
-    // Product::paginate(1);
+    // Product::paginate(10);
     $products = Product::all();
-    return view('products.index',['products' => $products]);
+    $categories = Category::all();
+    return view('products.index',['products' => $products, 'categories' => $categories]);
   }
 
   public function shoppingCart()

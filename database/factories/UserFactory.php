@@ -1,6 +1,5 @@
 <?php
 
-use App\Product;
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
@@ -14,11 +13,3 @@ use Faker\Generator as Faker;
 | model instances for testing / seeding your application's database.
 |
 */
-
-$factory->define(Product::class, function (Faker $faker) {
-    return [
-        'product_name' => $faker->product_name,
-        'product_price' => $faker->product_price,
-        'product_description' => $faker->product_description
-    ];
-});

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-  protected $table = 'products';
 
-  protected $fillable = ['product_name',  'product_price', 'product_description'];
-
-  protected $primaryKey = 'product_id';
+  public function Categories()
+  {
+    return $this->belongsToMany('App\Product');
+  }
 }

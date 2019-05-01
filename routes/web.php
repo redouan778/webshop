@@ -18,5 +18,5 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
-
+Route::resource('categories', 'CategoryController');
 Route::get('/shoppingCart', 'ProductController@shoppingCart')->name('shoppingCart');

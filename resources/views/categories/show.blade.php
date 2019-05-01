@@ -4,10 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h1>voorbeeld index</h1>
+            <h1>Kuch kuch biyc</h1>
 
       <div class="row">
-        @foreach ($products as $product)
+        @foreach ($category->products as $product)
           <div class="card" style="width: 18rem;" >
             <img class="card-img-top" src="..." alt="Card image cap">
               <div class="card-body">
