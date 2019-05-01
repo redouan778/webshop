@@ -11,12 +11,16 @@
 |
 */
 
-Route::get('/index', 'ProductController@index');
+Route::get('/', 'ProductController@index');
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/homepage', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
+
 Route::resource('categories', 'CategoryController');
+
+Route::get('/category/{id}', 'CategoryController@show')->name('category');
+
 Route::get('/shoppingCart', 'ProductController@shoppingCart')->name('shoppingCart');

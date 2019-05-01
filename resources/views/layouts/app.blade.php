@@ -35,15 +35,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                    
-                    </ul>
+                      @foreach ($categories as $categorie)
+                        <li><a  class="navbar-brand" href="{{ route('category', $categorie->id) }}">{{$categorie['name']}}</a></li>
+                    @endforeach
+                  </ul>
+
 
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         <li class="nav-item">
-<i class="fa fa-shopping-cart"></i>
+                          <i class="fa fa-shopping-cart"></i>
                             <a class="nav-link" href="{{ route('shoppingCart') }}">{{ __('shopping cart') }}</a>
                         </li>
                         @guest

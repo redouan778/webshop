@@ -5,6 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1>voorbeeld index</h1>
+          
 
       <div class="row">
         @foreach ($products as $product)
@@ -14,7 +15,7 @@
                 <h5 class="card-title">{{$product->name}}</h5>
                 <p class="card-text">{{$product->description}}</p>
                 <p class="card-text">€ {{$product->price}}</p>
-                <a href="{{ url('shoppingCart', $product->id) }}" class="btn btn-primary">Add Product to Cart</a>
+                <a href="{{ route('shoppingCart', $product->id) }}" class="btn btn-primary">Add Product to Cart</a>
               </div>
             </div>
           @endforeach

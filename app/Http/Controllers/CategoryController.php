@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Product;
 use App\Category;
 use Illuminate\Http\Request;
 
@@ -46,7 +46,8 @@ class CategoryController extends Controller
      */
     public function show(category $category)
     {
-        return view('categories.show', ['category' => $category]);
+$product = Product::all();
+        return view('categories.show', ['category' => $category, 'products' => $product]);
     }
 
     /**
