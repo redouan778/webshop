@@ -22,10 +22,31 @@ class ProductController extends Controller
     return view('products.index',['products' => $products, 'categories' => $categories]);
   }
 
-  public function shoppingCart()
+  public function AddToShoppingCart(Request $request, product $product, $id)
   {
-    // Product::paginate(1);
-    $products = Product::all();
-    return view('shoppingCart',['products' => $products]);
+
+    $product = Product::find($id);
+
+
+        if ($product->shopping_cart === 0) {
+            $productToShoppingCart = $product->update([
+                'shopping_cart' => $shoppingCart = 1
+            ]);
+            return redirect('homepage')->with('alert', 'Succesvol toegevoegd in je mandje!');
+
+        } else {
+            $productToShoppingCart = $product->update([
+                'shopping_cart' => $shoppingCart = 0
+            ]);
+            return redirect('homepage');
+        }
+
+  }
+
+  public function shoppingCart(){
+
+    $orders = Product::where('shopping_cart', 1)->get();
+
+    return view('shoppingCart',['orders' => $orders ]);
   }
 }

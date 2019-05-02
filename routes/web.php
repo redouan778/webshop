@@ -23,4 +23,6 @@ Route::resource('categories', 'CategoryController');
 
 Route::get('/category/{id}', 'CategoryController@show')->name('category');
 
+Route::get('/shoppingCart/{id}', 'ProductController@AddToShoppingCart')->name('AddToShoppingCart');
+
 Route::get('/shoppingCart', 'ProductController@shoppingCart')->name('shoppingCart');
