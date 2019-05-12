@@ -17,6 +17,16 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
 
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="css/style.css" rel="stylesheet">
+
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/webshop.css') }}" rel="stylesheet">
@@ -31,13 +41,14 @@
                     {{ config('app.name', 'homepage') }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
                 </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                      @foreach ($categories as $categorie)
+                        <li><a  class="navbar-brand" href="{{ route('category', $categorie->id) }}">{{$categorie['name']}}</a></li>
+                      @endforeach
                     </ul>
 
 
@@ -46,12 +57,15 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         <li class="nav-item">
-                          <i class="fa fa-shopping-cart"></i>
-                            <a class="nav-link" href="{{ route('shoppingCart') }}">{{ __('shopping cart') }}</a>
+
+                            <a class="nav-link" href="{{ route('shoppingCart') }}">
+                              <i class="fa fa-shopping-cart"></i>
+                            </a>
                         </li>
                         @guest
                             <li class="nav-item">
-                            <i class="fas fa-shopping-cart"></i>    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                              <!-- <i class="fas fa-shopping-cart"></i> -->
+                                  <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
@@ -77,8 +91,6 @@
                                 </div>
                             </li>
                         @endguest
-
-
                     </ul>
                 </div>
             </div>
@@ -86,12 +98,14 @@
 
         <main class="py-4">
           @if (session('alert'))
-    <div class="alert alert-success">
-        {{ session('alert') }}
-    </div>
-@endif
-            @yield('content')
+            <div class="alert alert-success">
+                {{ session('alert') }}
+            </div>
+          @endif
+
+          @yield('content')
         </main>
-    </div>
-</body>
+
+      </div>
+    </body>
 </html>

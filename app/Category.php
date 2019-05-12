@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
+    public $table = "categories";
+
     public function products()
     {
-      return $this->belongsToMany('App\Category');
+      return $this->belongsToMany('App\Product');
     }
 }

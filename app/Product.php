@@ -8,12 +8,12 @@ class Product extends Model
 {
   protected $fillable = ['name', 'description', 'price', 'shopping_cart'];
 
-  protected $table = 'Products';
+  protected $table = 'products';
 
   protected $primaryKey = 'id';
 
-  public function Categories()
+  public function categories()
   {
-    return $this->belongsToMany('App\Product');
+    return $this->belongsToMany('App\Category');
   }
 }
