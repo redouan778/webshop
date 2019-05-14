@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <h1>voorbeeld index</h1>
-        
+
+
+
+
       <div class="row">
         @foreach ($products as $product)
             <div class="card" style="width: 18rem;" >

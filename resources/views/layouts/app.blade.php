@@ -15,14 +15,13 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> -->
+    {{--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">--}}
 
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
 
@@ -58,8 +57,9 @@
                         <!-- Authentication Links -->
                         <li class="nav-item">
 
-                            <a class="nav-link" href="{{ route('shoppingCart') }}">
-                              <i class="fa fa-shopping-cart"></i>
+                            <a class="nav-link" href="{{ route('getCart') }}">
+                              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty :  'test'}}</span>
                             </a>
                         </li>
                         @guest

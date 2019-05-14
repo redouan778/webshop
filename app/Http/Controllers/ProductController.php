@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
+use App\Cart;
+
+use Session;
+
 
 class ProductController extends Controller
 {
@@ -22,31 +26,29 @@ class ProductController extends Controller
     return view('products.index',['products' => $products, 'categories' => $categories]);
   }
 
+
   public function AddToShoppingCart(Request $request, product $product, $id)
   {
 
     $product = Product::find($id);
+    $oldCart = Session::has('cart') ? Session::get('cart') : null;
+    $cart = new Cart($oldCart);
+    $cart->add($product, $product->id);
+    $request->session()->put('cart', $cart);
 
 
-        if ($product->shopping_cart === 0) {
-            $productToShoppingCart = $product->update([
-                'shopping_cart' => $shoppingCart = 1
-            ]);
-            return redirect('homepage')->with('alert', 'Succesvol toegevoegd in je mandje!');
+      return redirect('/');
 
-        } else {
-            $productToShoppingCart = $product->update([
-                'shopping_cart' => $shoppingCart = 0
-            ]);
-            return redirect('homepage');
-        }
 
   }
 
-  public function shoppingCart(){
+  public function getCart(){
+      if (!Session::has('cart')){
+          return view('shoppingCart',['products' => null]);
+      }
+      $oldCart = Session::get('cart');
+      $cart = New Cart($oldCart);
 
-    $orders = Product::where('shopping_cart', 1)->get();
-
-    return view('shoppingCart',['orders' => $orders ]);
+      return view('shoppingCart',['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
   }
 }
