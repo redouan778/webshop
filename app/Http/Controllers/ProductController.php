@@ -68,7 +68,7 @@ class ProductController extends Controller
     foreach ($productsInCart as $key => $productInCart)
     {
         if ($productInCart->id == $id) {
-            request()->session()->pull(s'cart' . $key, 'default');
+            request()->session()->pull('cart' . $key, 'default');
         }
     }
   }
