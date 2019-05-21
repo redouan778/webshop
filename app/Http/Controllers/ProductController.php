@@ -23,7 +23,8 @@ class ProductController extends Controller
     // Product::paginate(10);
     $products = Product::all();
     $categories = Category::all();
-    return view('products.index',['products' => $products, 'categories' => $categories]);
+
+      return view('products.index',['products' => $products, 'categories' => $categories]);
   }
 
 
@@ -42,7 +43,8 @@ class ProductController extends Controller
 
   }
 
-  public function getCart(){
+  public function getCart()
+  {
       if (!Session::has('cart')){
           return view('shoppingCart',['products' => null]);
       }
@@ -51,4 +53,24 @@ class ProductController extends Controller
 
       return view('shoppingCart',['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
   }
+
+  public function deleteAllProducts()
+  {
+      request()->session()->forget('cart');
+
+      return redirect('/');
+  }
+
+  public function deleteOneProduct($id)
+  {
+    $productsInCart = request()->session()->get('cart');
+
+    foreach ($productsInCart as $key => $productInCart)
+    {
+        if ($productInCart->id == $id) {
+            request()->session()->pull('cart' . $key, 'default');
+        }
+    }
+  }
+
 }

@@ -7,36 +7,36 @@
 @section('content')
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-12">s
+        <div class="col-md-12">
           @if(Session::has('cart'))
 
           @foreach($products as $product)
             <li class="list-group-item">
               <strong class="shoppingcartStyling">{{ $product['item']['name'] }}</strong>
-              <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-xs dropdown-toogle" data-toggle="dropdown">Action <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Reduce by 1</a></li>
-                  <li><a href="#">Reduce All</a></li>
-                </ul>
-              </div>
-              <span>€ {{ $product['price'] }}</span>
 
-              <span class="badge">{{ $product['qty'] }}</span>
+                <input type=number min=0 max=15 value="{{ $product['qty'] }}">
 
+                <span>€ {{ $product['price'] }}</span>
+                <i class="fas fa-trash-alt delete"></i>
+                <a class="btn btn-danger btn-xs dropdown-toogle fas fa-trash-alt delete" href="{{ route('deleteOneProduct', $productInCart->id) }}">
+                    Delete All Products
+                </a>
             </li>
           @endforeach
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-        <strong>Total: {{ $totalPrice }}</strong>
+        <strong>Total Price: {{ $totalPrice }}</strong>
       </div>
     </div>
     <hr>
     <div class="row">
       <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-        <button type="button" class="btn btn-success">Checkout</button>
+          <a class="btn btn-danger btn-xs dropdown-toogle" href="{{ route('deleteAllProducts') }}">
+            Delete All Products
+          </a>
+          <button type="button" class="btn btn-success">Checkout</button>
       </div>
     </div>
   @else

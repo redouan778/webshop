@@ -36,7 +36,7 @@ class Cart
       }
 
     /**
-     * @return null
+     *
      */
     public function getItems()
     {

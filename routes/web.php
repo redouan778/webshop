@@ -14,7 +14,6 @@
 Route::get('/', 'ProductController@index');
 
 Auth::routes();
-
 Route::get('/homepage', 'HomeController@index')->name('home');
 
 Route::resource('products', 'ProductController');
@@ -26,3 +25,7 @@ Route::get('/category/{id}', 'CategoryController@show')->name('category');
 Route::get('/shoppingCart/{id}', 'ProductController@AddToShoppingCart')->name('AddToShoppingCart');
 
 Route::get('/getCart', 'ProductController@getCart')->name('getCart');
+
+Route::get('/deleteAllProducts', 'ProductController@deleteAllProducts')->name('deleteAllProducts');
+
+Route::get('/deleteOneProduct/{id}', 'ProductController@deleteOneProduct')->name('deleteOneProduct');

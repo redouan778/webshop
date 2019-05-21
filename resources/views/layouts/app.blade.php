@@ -59,7 +59,7 @@
 
                             <a class="nav-link" href="{{ route('getCart') }}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty :  'test'}}</span>
+                                <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty :  ''}}</span>
                             </a>
                         </li>
                         @guest
