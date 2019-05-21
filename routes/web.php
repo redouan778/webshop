@@ -28,4 +28,4 @@ Route::get('/getCart', 'ProductController@getCart')->name('getCart');
 
 Route::get('/deleteAllProducts', 'ProductController@deleteAllProducts')->name('deleteAllProducts');
 
-Route::get('/deleteOneProduct/{id}', 'ProductController@deleteOneProduct')->name('deleteOneProduct');
+Route::get('/deleteOneProduct/{id}', 'ProductController@removeFromCart')->name('deleteOneProduct');

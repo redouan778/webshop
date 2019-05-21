@@ -9,18 +9,14 @@
       <div class="row justify-content-center">
         <div class="col-md-12">
           @if(Session::has('cart'))
-
-          @foreach($products as $product)
+            @foreach($products as $product)
             <li class="list-group-item">
               <strong class="shoppingcartStyling">{{ $product['item']['name'] }}</strong>
 
                 <input type=number min=0 max=15 value="{{ $product['qty'] }}">
 
                 <span>€ {{ $product['price'] }}</span>
-                <i class="fas fa-trash-alt delete"></i>
-                <a class="btn btn-danger btn-xs dropdown-toogle fas fa-trash-alt delete" href="{{ route('deleteOneProduct', $productInCart->id) }}">
-                    Delete All Products
-                </a>
+                <a class=" fas fa-trash-alt delete" href="{{ route('deleteOneProduct', $product['item']['id']) }}"></a>
             </li>
           @endforeach
       </div>

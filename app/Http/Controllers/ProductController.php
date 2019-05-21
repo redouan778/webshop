@@ -35,7 +35,9 @@ class ProductController extends Controller
     $oldCart = Session::has('cart') ? Session::get('cart') : null;
     $cart = new Cart($oldCart);
     $cart->add($product, $product->id);
-    $request->session()->put('cart', $cart);
+//    $cart->cc($product, $product->id);
+
+      $request->session()->put('cart', $cart);
 
 
       return redirect('/');
@@ -50,6 +52,8 @@ class ProductController extends Controller
       }
       $oldCart = Session::get('cart');
       $cart = New Cart($oldCart);
+//      $cart->cc($item, $id);
+
 
       return view('shoppingCart',['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
   }
@@ -61,16 +65,13 @@ class ProductController extends Controller
       return redirect('/');
   }
 
-  public function deleteOneProduct($id)
-  {
-    $productsInCart = request()->session()->get('cart');
-
-    foreach ($productsInCart as $key => $productInCart)
+    public function removeFromCart($id)
     {
-        if ($productInCart->id == $id) {
-            request()->session()->pull('cart' . $key, 'default');
-        }
+        $oldCart = Session::get('cart');
+
+        $cart = new Cart($oldCart);
+        $cart->deleteOneProduct($id);
+        return redirect('/');
     }
-  }
 
 }
