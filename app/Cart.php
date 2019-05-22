@@ -2,62 +2,65 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Model;
+use Session;
+
 class Cart
 {
-  public $items = null;
-  public $totalQty;
-  public $totalPrice;
-
-  public function __construct()
-  {
-//    if ($oldCart) {
-//      $this->items = $oldCart->items;
-//      $this->totalQty = $oldCart->totalQty;
-//      $this->totalPrice = $oldCart->totalPrice;
-//    }
-  }
-
-    /**
-     * @param $item
-     * @param $id
-     */
-    public function Add($item, $id){
-        $storedItem = ['qty' => 0, 'price' => $item->price, 'item' => $item];
-          if ($this->items) {
-              if (array_key_exists($id, $this->items)) {
-                  $storedItem = $this->items[$id];
-              }
-          }
-          $storedItem['qty']++;
-          $storedItem['price'] = $item->price * $storedItem['qty'];
-          $this->items[$id] = $storedItem;
-          $this->totalQty++;
-          $this->totalPrice += $item->price;
-      }
+    public $items = null;
+    public $totalQty = 0;
+    public $totalPrice = 0;
 
 
-//    public function cc()
-//    {
-//    }
-    /**
-     * @param $id
-     */
-    // http://127.0.0.1:8000/deleteOneProduct/1
-    public function deleteOneProduct($id)
+    public function __construct(){
+        if (Session::has('cart')) {
+            $this->items = Session::get('cart')->items;
+            $this->totalPrice = Session::get('cart')->totalPrice;
+            $this->totalQty = Session::get('cart')->totalQty;
+        } else {
+            $this->items = [];
+            session()->put('cart', $this);
+            //dd('no cart found, create new one');
+        }
+    }
+
+    public function add($item, $id)
     {
-        $productsInCart = request()->session()->get('cart');
 
-        foreach($productsInCart->items as $key => $productInCart)
-        {
-            if($key == $id)
-            {
-                unset($productsInCart->items[$key]);
-               // request()->session()->pull('cart.'.$key, 'default');
-                request()->session()->put('cart', $productsInCart);
+            if (array_key_exists($id, $this->items)) {
+                // ophalen, ophogen, opslaan
+                $existingItem = $this->items[$id];
+                $existingItem['quantity']++;
+                $existingItem['subtotal'] = $existingItem['price'] * $existingItem['quantity'];
+                $this->items[$id] = $existingItem;
+            } else {
+                // nieuw toevoegen met aantal 1
+                $newitem = ['name' => $item->name, 'price' => $item->price];
+                $newitem['quantity'] = 1;
+                $newitem['subtotal'] = $newitem['price'] * $newitem['quantity'];
+                $this->items[$id] = $newitem;
             }
+            $this->SaveToSession();
         }
 
+    private function SaveToSession() {
+        $this->totalPrice = $this->GetTotalPrice();
+        $this->totalQty = $this->GetTotalItemCount();
+        session()->put('cart', $this);
     }
+
+        public function deleteOneProduct($id)
+        {
+            $productsInCart = request()->session()->get('cart');
+
+            foreach ($productsInCart->items as $key => $productInCart) {
+                if ($key == $id) {
+                    unset($productsInCart->items[$key]);
+                    // request()->session()->pull('cart.'.$key, 'default');
+                    request()->session()->put('cart', $productsInCart);
+                }
+            }
+        }
 
     }
 

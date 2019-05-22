@@ -57,7 +57,7 @@
                         <!-- Authentication Links -->
                         <li class="nav-item">
 
-                            <a class="nav-link" href="{{ route('getCart') }}">
+                            <a class="nav-link" href="{{ route('shoppingCart') }}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                                 <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty :  ''}}</span>
                             </a>

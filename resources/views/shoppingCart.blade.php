@@ -8,22 +8,20 @@
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-12">
-          @if(Session::has('cart'))
-            @foreach($products as $product)
+
             <li class="list-group-item">
-              <strong class="shoppingcartStyling">{{ $product['item']['name'] }}</strong>
+              <strong class="shoppingcartStyling">iphone 6s</strong>
 
-                <input type=number min=0 max=15 value="{{ $product['qty'] }}">
+                <input type=number min=0 max=15 value="2">
 
-                <span>€ {{ $product['price'] }}</span>
-                <a class=" fas fa-trash-alt delete" href="{{ route('deleteOneProduct', $product['item']['id']) }}"></a>
+                <span>€ 300</span>
+                <a class=" fas fa-trash-alt delete" href=""></a>
             </li>
-          @endforeach
       </div>
     </div>
     <div class="row">
       <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-        <strong>Total Price: {{ $totalPrice }}</strong>
+        <strong>Total Price: € 234</strong>
       </div>
     </div>
     <hr>
@@ -35,12 +33,10 @@
           <button type="button" class="btn btn-success">Checkout</button>
       </div>
     </div>
-  @else
-    <div class="row">
-      <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-        <h2>No Items in Cart!</h2>
-      </div>
-    </div>
-  @endif
+    {{--<div class="row">--}}
+      {{--<div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">--}}
+        {{--<h2>No Items in Cart!</h2>--}}
+      {{--</div>--}}
+    {{--</div>--}}
     </div>
 @endsection
