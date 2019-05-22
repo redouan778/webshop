@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
-use App\Cart;
-
 use Session;
+use App\cart;
+
 
 
 class ProductController extends Controller
@@ -24,7 +24,7 @@ class ProductController extends Controller
     $products = Product::all();
     $categories = Category::all();
 
-      return view('products.index',['products' => $products, 'categories' => $categories]);
+    return view('products.index',['data' => $data, 'products' => $products, 'categories' => $categories]);
   }
 
 
@@ -35,7 +35,6 @@ class ProductController extends Controller
     $oldCart = Session::has('cart') ? Session::get('cart') : null;
     $cart = new Cart($oldCart);
     $cart->add($product, $product->id);
-//    $cart->cc($product, $product->id);
 
       $request->session()->put('cart', $cart);
 
@@ -52,7 +51,7 @@ class ProductController extends Controller
       }
       $oldCart = Session::get('cart');
       $cart = New Cart($oldCart);
-//      $cart->cc($item, $id);
+//      $cart->cc();
 
 
       return view('shoppingCart',['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
@@ -65,13 +64,6 @@ class ProductController extends Controller
       return redirect('/');
   }
 
-    public function removeFromCart($id)
-    {
-        $oldCart = Session::get('cart');
 
-        $cart = new Cart($oldCart);
-        $cart->deleteOneProduct($id);
-        return redirect('/');
-    }
 
 }
