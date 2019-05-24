@@ -25,8 +25,9 @@ Route::get('/category/{id}', 'CategoryController@show')->name('category');
 
 Route::get('/shoppingCart', 'CartController@index')->name('shoppingCart');
 
-Route::get('/shoppingCart/{id}', 'CartController@AddToCart')->name('AddToShoppingCart');
+Route::get('/users', 'UserController@index')->name('users');
 
+Route::get('/shoppingCart/{id}', 'CartController@AddToCart')->name('AddToShoppingCart');
 
 Route::get('/deleteAllProducts', 'CartController@deleteAllProducts')->name('deleteAllProducts');
 

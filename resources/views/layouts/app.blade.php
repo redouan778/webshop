@@ -34,6 +34,7 @@
 </head>
 <body>
     <div id="app">
+        @if
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/homepage') }}">
@@ -59,7 +60,7 @@
 
                             <a class="nav-link" href="{{ route('shoppingCart') }}">
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                                <span class="badge">{{Session::has('cart') ? Session::get('cart')->totalQty :  ''}}</span>
+{{--                                {{ App\Cart->getAmount() }}--}}
                             </a>
                         </li>
                         @guest

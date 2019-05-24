@@ -1,66 +1,104 @@
 <?php
-
 namespace App;
-
 use Illuminate\Database\Eloquent\Model;
+use App\Product;
+use Illuminate\View;
 use Session;
-
-class Cart
+class Cart extends Model
 {
-    public $items = null;
-    public $totalQty = 0;
-    public $totalPrice = 0;
-
-
-    public function __construct(){
-        if (Session::has('cart')) {
-            $this->items = Session::get('cart')->items;
-            $this->totalPrice = Session::get('cart')->totalPrice;
-            $this->totalQty = Session::get('cart')->totalQty;
-        } else {
-            $this->items = [];
-            session()->put('cart', $this);
-            //dd('no cart found, create new one');
-        }
-    }
-
-    public function add($item, $id)
+    //Get products from session variable 'cart'. If the cart variable(products in cart) is not empty, calculate the total price.
+    public function index()
     {
-
-            if (array_key_exists($id, $this->items)) {
-                // ophalen, ophogen, opslaan
-                $existingItem = $this->items[$id];
-                $existingItem['quantity']++;
-                $existingItem['subtotal'] = $existingItem['price'] * $existingItem['quantity'];
-                $this->items[$id] = $existingItem;
-            } else {
-                // nieuw toevoegen met aantal 1
-                $newitem = ['name' => $item->name, 'price' => $item->price];
-                $newitem['quantity'] = 1;
-                $newitem['subtotal'] = $newitem['price'] * $newitem['quantity'];
-                $this->items[$id] = $newitem;
-            }
-            $this->SaveToSession();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
         }
+        $totalPrice = 0;
+        $productsInCart = request()->session()->get('cart');
 
-    private function SaveToSession() {
-        $this->totalPrice = $this->GetTotalPrice();
-        $this->totalQty = $this->GetTotalItemCount();
-        session()->put('cart', $this);
-    }
-
-        public function deleteOneProduct($id)
+//        dd($productsInCart);
+        if($productsInCart != null && $productsInCart != "array() { }")
         {
-            $productsInCart = request()->session()->get('cart');
+            foreach($productsInCart as $productInCart)
+            {
+                $productInCart->amount = +1;
 
-            foreach ($productsInCart->items as $key => $productInCart) {
-                if ($key == $id) {
-                    unset($productsInCart->items[$key]);
-                    // request()->session()->pull('cart.'.$key, 'default');
-                    request()->session()->put('cart', $productsInCart);
+                $totalPrice = $totalPrice + ($productInCart->amount * number_format($productInCart->price, 2));
+                $productInCart->totalPrice = (number_format($productInCart->price, 2) * $productInCart->amount);
+            }
+        }
+        return array($totalPrice, $productsInCart);
+
+    }
+    //Add product to cart if it doesn't exist in the cart yet. If it does exist, add one to the amount.
+    public function addToCart($id)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $product = Product::find($id);
+        $addedToCart = false;
+        $productsInCart = request()->session()->get('cart');
+
+        if($productsInCart != null && $productsInCart != "array(0) { }"){
+//            dd($productsInCart);
+
+            foreach($productsInCart as $productInCart)
+            {
+                if($productInCart->id == $id)
+                {
+                    $productInCart->amount++;
+                    $addedToCart = true;
                 }
             }
         }
-
+        if($addedToCart == false)
+        {
+            request()->session()->push('cart', $product);
+        }
     }
-
+    //Update the cart. Alter product amount according to the entered value in amount input.
+    public function updateCart($request, $id)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $productsInCart = request()->session()->get('cart');
+        foreach($productsInCart as $productInCart)
+        {
+            if($productInCart->id == $id)
+            {
+                if($request->amount <= 0 || $request->amount == '')
+                {
+                    $this->removeFromCart($id);
+                }else
+                {
+                    $productInCart->amount = $request->amount;
+                }
+            }
+        }
+    }
+    //Remove product from the cart.
+    public function removeFromCart($id)
+    {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $productsInCart = request()->session()->get('cart');
+        foreach($productsInCart as $key => $productInCart)
+        {
+            if($productInCart->id == $id)
+            {
+                request()->session()->pull('cart.'.$key, 'default');
+            }
+        }
+    }
+    public static function getAmount()
+    {
+        $amount = 0;
+        $session = request()->session()->get('cart');
+        foreach ($session as $items) {
+            $amount += $items->amount;
+        }
+        return $amount;
+    }
+}
