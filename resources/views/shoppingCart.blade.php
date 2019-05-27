@@ -6,27 +6,25 @@
 
 @section('content')
     <div class="container">
+
+    @if(session()->has('cart') && !empty(session()->get('cart')))
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @if(Session::has('cart'))
-                    <pre>
-                        {{--{{print_r($productsInCart)}}--}}
-                    </pre>x
-                    @foreach($productsInCart as $product)
-                        <li class="list-group-item">
-                            <strong class="shoppingcartStyling">{{$product->name}}</strong>
+                @foreach($cartItems as $product)
+                    <li class="list-group-item">
+                        <strong class="shoppingcartStyling">{{$product['name']}}</strong>
 
-                            <input type=number min=0 max=15 value="{{$product->amount}}">
+                        <input type=number min=0 max=15 value="{{$product['amount']}}">
 
-                            <span>€ {{$product->price}}</span>
-                            <a class=" fas fa-trash-alt delete" href="#"></a>
-                        </li>
-                    @endforeach
+                        <span>€ {{$product['price']}}</span>
+                        <a class=" fas fa-trash-alt delete" href="#"></a>
+                    </li>
+                @endforeach
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-                <strong>Total Price: {{$totalPrice}}</strong>
+                <strong>Total Price: {{($cart)}} </strong>
             </div>
         </div>
         <hr>

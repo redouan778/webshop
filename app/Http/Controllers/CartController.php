@@ -4,34 +4,36 @@ use App\Cart;
 use Illuminate\Http\Request;
 class CartController extends Controller
 {
+    public $cart;
+    public function __construct()
+    {
+        $this->cart = $cart = new Cart();
+    }
+
     public function index()
     {
-        $cart = new Cart();
-        $array = $cart->index();
-        $totalPrice = $array[0];
-        $productsInCart = $array[1];
-        return view('shoppingCart', compact('productsInCart', 'totalPrice'));
+        $cartItems = $this->cart->index();
+        $cart = $this->cart->getTotal();
+
+        return view('shoppingCart', compact('cartItems','cart'));
     }
 
     public function addToCart($id)
     {
-        $cart = new Cart();
-        $cart->addToCart($id);
+        $this->cart->addToCart($id);
 
         return redirect('/shoppingCart');
     }
 
     public function updateCart(Request $request, $id)
     {
-        $cart = new Cart();
-        $cart->updateCart($request, $id);
+        $this->cart->updateCart($request, $id);
         return redirect('cart');
     }
 
     public function removeFromCart($id)
     {
-        $cart = new Cart();
-        $cart->removeFromCart($id);
+        $this->cart->removeFromCart($id);
         return redirect('cart');
     }
 
@@ -39,7 +41,6 @@ class CartController extends Controller
     public function deleteAllProducts()
     {
         request()->session()->forget('cart');
-
         return redirect('/');
     }
 }

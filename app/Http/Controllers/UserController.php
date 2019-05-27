@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\UserTable;
+use App\Product;
 
 
 class UserController extends Controller
 {
     public function index(){
-        $AllUsers = User::all();
+        $AllUsers = UserTable::all();
+        $products = Product::all();
 
-        redirect('/', compact('AllUsers'));
+//dd($AllUsers);
+        return view('products.index',compact('AllUsers' , 'products'));
     }
 }
