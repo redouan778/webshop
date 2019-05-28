@@ -12,19 +12,20 @@
             <div class="col-md-12">
                 @foreach($cartItems as $product)
                     <li class="list-group-item">
+{{--                        {{print_r($cartItems)}}--}}
                         <strong class="shoppingcartStyling">{{$product['name']}}</strong>
 
                         <input type=number min=0 max=15 value="{{$product['amount']}}">
 
                         <span>€ {{$product['price']}}</span>
-                        <a class=" fas fa-trash-alt delete" href="#"></a>
+                        <a class=" fas fa-trash-alt delete" href="{{route('deleteOneProduct', $product['id'])}}"></a>
                     </li>
                 @endforeach
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-                <strong>Total Price: {{($cart)}} </strong>
+                <strong>Total Price: € {{($totalPrice)}},- </strong>
             </div>
         </div>
         <hr>

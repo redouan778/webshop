@@ -60,7 +60,6 @@
                         <li class="nav-item">
 
                             <a class="nav-link" href="{{ route('shoppingCart') }}">
-{{--                                {{}}--}}
                               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                             </a>
                         </li>

@@ -37,7 +37,7 @@ class Cart extends Model
             $product = Product::find($id);
             //If the id doesn't is in the session, it will be
             if($product != null){
-                $this->items[$id] = ['name'=> $product->name, 'price'=> $product->price, 'amount' => 1];
+                $this->items[$id] = ['id' => $product->id ,'name'=> $product->name, 'price'=> $product->price, 'amount' => 1];
             }
         }
 
@@ -52,6 +52,11 @@ class Cart extends Model
        return $this->totalPrice;
     }
 
+    public function getTotalCount()
+    {
+        $this->reCalculate();
+        return $this->totalCount;
+    }
 
     public function reCalculate()
     {
@@ -68,13 +73,10 @@ class Cart extends Model
     //Remove product from the cart.
     public function removeFromCart($id)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
         $productsInCart = request()->session()->get('cart');
         foreach($productsInCart as $key => $productInCart)
         {
-            if($productInCart->id == $id)
+            if($productInCart['id'] == $id)
             {
                 request()->session()->pull('cart.'.$key, 'default');
             }
@@ -84,9 +86,6 @@ class Cart extends Model
     //Update the cart. Alter product amount according to the entered value in amount input.
     public function updateCart($request, $id)
     {
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
         $productsInCart = request()->session()->get('cart');
         foreach($productsInCart as $productInCart)
         {

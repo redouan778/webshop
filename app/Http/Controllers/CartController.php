@@ -13,9 +13,11 @@ class CartController extends Controller
     public function index()
     {
         $cartItems = $this->cart->index();
-        $cart = $this->cart->getTotal();
+        $totalPrice = $this->cart->getTotal();
+        $totalCount = $this->cart->getTotalCount();
 
-        return view('shoppingCart', compact('cartItems','cart'));
+
+        return view('shoppingCart', compact('cartItems','totalPrice', 'totalCount'));
     }
 
     public function addToCart($id)
@@ -34,7 +36,7 @@ class CartController extends Controller
     public function removeFromCart($id)
     {
         $this->cart->removeFromCart($id);
-        return redirect('cart');
+        return redirect('shoppingCart');
     }
 
 

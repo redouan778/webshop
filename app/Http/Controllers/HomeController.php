@@ -7,8 +7,10 @@ use App\Product;
 use App\Category;
 
 
+
 class HomeController extends Controller
 {
+
     /**
      * Create a new controller instance.
      *
@@ -27,8 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $products = Product::all();
-      $categories = Category::all();
-      return view('products.index',['products' => $products, 'categories' => $categories]);
+        $products = Product::all();
+        $categories = Category::all();
+
+        return view('products.index',compact('products' ,'categories'));
     }
 }
