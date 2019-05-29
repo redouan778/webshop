@@ -13,22 +13,22 @@
 
 Auth::routes();
 
+//Homepage
 Route::get('/', 'ProductController@index');
-
 Route::get('/homepage', 'HomeController@index')->name('home');
 
+//Products resource
 Route::resource('products', 'ProductController');
 
+//Category resource
 Route::resource('categories', 'CategoryController');
 
-Route::get('/category/{id}', 'CategoryController@show')->name('category');
-
+//Category routes
 Route::get('/shoppingCart', 'CartController@index')->name('shoppingCart');
-
-Route::get('/users', 'UserController@index')->name('users');
-
+Route::get('/category/{id}', 'CategoryController@show')->name('category');
 Route::get('/shoppingCart/{id}', 'CartController@AddToCart')->name('AddToShoppingCart');
-
+Route::get('/deleteOneProduct/{id}', 'CartController@removeFromCart')->name('deleteOneProduct');
 Route::get('/deleteAllProducts', 'CartController@deleteAllProducts')->name('deleteAllProducts');
 
-Route::get('/deleteOneProduct/{id}', 'CartController@removeFromCart')->name('deleteOneProduct');
+//User routes
+Route::get('/users', 'UserController@index')->name('users');

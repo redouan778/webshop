@@ -13,7 +13,6 @@ class UserController extends Controller
         $AllUsers = UserTable::all();
         $products = Product::all();
 
-//dd($AllUsers);
         return view('products.index',compact('AllUsers' , 'products'));
     }
 }

@@ -6,13 +6,16 @@
 
 @section('content')
     <div class="container">
-
+        <pre>
+            {{print_r(session()->get('cart'))}}
+            {{$totalCount}}
+        </pre>
     @if(session()->has('cart') && !empty(session()->get('cart')))
         <div class="row justify-content-center">
             <div class="col-md-12">
                 @foreach($cartItems as $product)
                     <li class="list-group-item">
-{{--                        {{print_r($cartItems)}}--}}
+                        {{--{{print_r($cartItems)}}--}}
                         <strong class="shoppingcartStyling">{{$product['name']}}</strong>
 
                         <input type=number min=0 max=15 value="{{$product['amount']}}">

@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
-use Session;
-use App\Cart;
-
-
 
 class ProductController extends Controller
 {
@@ -18,6 +14,8 @@ class ProductController extends Controller
       $this->middleware('auth');
   }
 
+  //Shows all
+    //  products.
   public function index()
   {
     // Product::paginate(10);
@@ -26,17 +24,4 @@ class ProductController extends Controller
 
     return view('products.index',['products' => $products, 'categories' => $categories]);
   }
-
-
-
-
-  public function deleteAllProducts()
-  {
-      request()->session()->forget('cart');
-
-      return redirect('/');
-  }
-
-
-
 }
