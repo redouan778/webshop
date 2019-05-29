@@ -1,55 +1,52 @@
 <?php
 namespace App\Http\Controllers;
+
 use App\Cart;
+use App\Product;
 use Illuminate\Http\Request;
+
 class CartController extends Controller
 {
     public $cart;
+
     public function __construct()
     {
-        $this->cart = $cart = new Cart();
+        $this->cart = new Cart();
     }
-
 
     //Show the cart view with some data.
     public function index()
     {
-        $cartItems = $this->cart->index();
-        $totalPrice = $this->cart->getTotal();
-        $totalCount = $this->cart->getTotalCount();
+        $items = $this->cart->show();
 
-        return view('shoppingCart', compact('cartItems','totalPrice', 'totalCount'));
+        if (is_array($items)) {
+            foreach ($items as $item) {
+                $product = Product::find($item['id']);
+                $product['quantity'] = $item['quantity'];
+                $products[] = $product;
+            }
+        }
+        return view('shoppingCart', compact('products'));
     }
 
-
     //Add a product to cart.
-    public function addToCart($id)
+    public function addToCart($id, $amount=1)
     {
-        $this->cart->addToCart($id);
+        $this->cart->add($id, $amount);
         return redirect('/shoppingCart');
     }
 
-
-    //Update the cart.
-    public function updateCart(Request $request, $id)
-    {
-        $this->cart->updateCart($request, $id);
-        return redirect('cart');
-    }
-
-
     //Delete an individual product in the cart.
-    public function removeFromCart($id)
+    public function removeFromCart($id, $amount=1)
     {
-        $this->cart->removeFromCart($id);
+        $this->cart->remove($id, $amount);
         return redirect('shoppingCart');
     }
-
 
     //Deletes all product from cart
     public function deleteAllProducts()
     {
-        $this->cart->deleteAll();
+        $this->cart->reset();
         return redirect('/');
     }
 }

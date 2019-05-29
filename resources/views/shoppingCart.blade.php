@@ -5,30 +5,33 @@
 @endsection
 
 @section('content')
+    @php
+        $totalPrice = 0;
+    @endphp
     <div class="container">
-        <pre>
-            {{print_r(session()->get('cart'))}}
-            {{$totalCount}}
-        </pre>
+
     @if(session()->has('cart') && !empty(session()->get('cart')))
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @foreach($cartItems as $product)
+                @foreach($products as $product)
                     <li class="list-group-item">
                         {{--{{print_r($cartItems)}}--}}
-                        <strong class="shoppingcartStyling">{{$product['name']}}</strong>
+                        <strong class="shoppingcartStyling">{{$product->name}}</strong>
 
-                        <input type=number min=0 max=15 value="{{$product['amount']}}">
+                        <input type=number min=0 max=15 value="{{$product->quantity}}">
 
-                        <span>€ {{$product['price']}}</span>
+                        <span>€ {{ $product['price'] * $product['quantity'] }}</span>
                         <a class=" fas fa-trash-alt delete" href="{{route('deleteOneProduct', $product['id'])}}"></a>
                     </li>
+                    @php
+                    $totalPrice += $product['price'] * $product['quantity'];
+                    @endphp
                 @endforeach
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-                <strong>Total Price: € {{($totalPrice)}},- </strong>
+                <strong>Total Price: €{{$totalPrice}},- </strong>
             </div>
         </div>
         <hr>
