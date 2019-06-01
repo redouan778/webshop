@@ -18,6 +18,8 @@ class CartController extends Controller
     public function index()
     {
         $items = $this->cart->show();
+        $leeg = 'Winkelkar is leeg';
+
 
         if (is_array($items)) {
             foreach ($items as $item) {
@@ -25,8 +27,10 @@ class CartController extends Controller
                 $product['quantity'] = $item['quantity'];
                 $products[] = $product;
             }
+        }else{
+            $leeg;
         }
-        return view('shoppingCart', compact('products'));
+        return view('shoppingCart', compact('products', 'leeg'));
     }
 
     //Add a product to cart.
