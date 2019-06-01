@@ -50,6 +50,7 @@
                       @foreach ($categories as $categorie)
                         <li><a  class="navbar-brand" href="{{ route('category', $categorie->id) }}">{{$categorie['name']}}</a></li>
                       @endforeach
+                          <li><a  class="navbar-brand" href="{{ route('adminPanel') }}">Admin Panel</a></li>
                     </ul>
 
 

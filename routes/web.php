@@ -30,5 +30,5 @@ Route::get('/shoppingCart/{id}', 'CartController@AddToCart')->name('AddToShoppin
 Route::get('/deleteOneProduct/{id}', 'CartController@removeFromCart')->name('deleteOneProduct');
 Route::get('/deleteAllProducts', 'CartController@deleteAllProducts')->name('deleteAllProducts');
 
-//User routes
-Route::get('/users', 'UserController@index')->name('users');
+//
+Route::get('/adminPanel', 'ProductController@admin')->name('adminPanel')->middleware('admin');

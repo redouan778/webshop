@@ -12,6 +12,7 @@ class ProductController extends Controller
   public function __construct()
   {
       $this->middleware('auth');
+//      $this->middleware('admin');
   }
 
   //Shows all
@@ -24,4 +25,9 @@ class ProductController extends Controller
 
     return view('products.index',['products' => $products, 'categories' => $categories]);
   }
+
+    public function admin()
+    {
+        echo 'rer';
+    }
 }
