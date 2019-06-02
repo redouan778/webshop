@@ -50,7 +50,13 @@
                       @foreach ($categories as $categorie)
                         <li><a  class="navbar-brand" href="{{ route('category', $categorie->id) }}">{{$categorie['name']}}</a></li>
                       @endforeach
-                          <li><a  class="navbar-brand" href="{{ route('adminPanel') }}">Admin Panel</a></li>
+                          @if(auth()->User('isAdmin') == null )
+                              <div class=”panel-body”>
+                                  <li><a  class="navbar-brand" href="{{ route('adminPanel') }}">Admin Panel</a></li>
+                              </div>
+                          @else
+                              <div class=”panel-heading”>Normal User</div>
+                          @endif
                     </ul>
 
 

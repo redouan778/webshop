@@ -7,19 +7,16 @@ use Closure;
 class Admin
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
-     * @return mixed
+     * @param $request
+     * @param Closure $next
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->admin === "yes") {
-            return $next($request);
-        }else {
-            return view("error")->with("error", "You have not admin access");
-        }
+            if (auth()->User()->isAdmin == 1) {
+                return $next($request);
+            }
+            return redirect('/homepage')->with('error', 'You have not admin access');
     }
 }
 

@@ -14,7 +14,7 @@ class AddAdminPanel extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('admin', ['yes', 'no'])->default('no');
+            $table->boolean('isAdmin')->nullable();
 
         });
     }
@@ -27,7 +27,7 @@ class AddAdminPanel extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('admin');
+            $table->dropColumn('isAdmin');
         });
     }
 }

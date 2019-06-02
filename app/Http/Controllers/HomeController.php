@@ -34,4 +34,7 @@ class HomeController extends Controller
 
         return view('products.index',compact('products' ,'categories'));
     }
+
+    public function admin()
+    { return view('admin'); }
 }
