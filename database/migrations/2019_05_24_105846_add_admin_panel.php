@@ -14,7 +14,8 @@ class AddAdminPanel extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('isAdmin')->nullable();
+            $table->enum('isAdmin', ['yes', 'no'])->default('no');
+
 
         });
     }

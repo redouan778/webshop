@@ -18,8 +18,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => array('index')]);
-
+//        $this->middleware('auth');
+//, ['except' => array('index', 'admin')]
     }
 
     /**
@@ -36,5 +36,12 @@ class HomeController extends Controller
     }
 
     public function admin()
-    { return view('admin'); }
+    {
+        return view('admin');
+    }
+
+    public function error()
+    {
+        return view('error');
+    }
 }

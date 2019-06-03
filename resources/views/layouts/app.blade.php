@@ -30,7 +30,6 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/webshop.css') }}" rel="stylesheet">
     <script src="{{ asset('js/webshop.js') }}" ></script>
-
 </head>
 <body>
     <div id="app">
@@ -50,16 +49,12 @@
                       @foreach ($categories as $categorie)
                         <li><a  class="navbar-brand" href="{{ route('category', $categorie->id) }}">{{$categorie['name']}}</a></li>
                       @endforeach
-                          @if(auth()->User('isAdmin') == null )
+{{--                          @if(Auth::user()->isAdmin == 'yes')--}}
                               <div class=”panel-body”>
                                   <li><a  class="navbar-brand" href="{{ route('adminPanel') }}">Admin Panel</a></li>
                               </div>
-                          @else
-                              <div class=”panel-heading”>Normal User</div>
-                          @endif
+                          {{--@endif--}}
                     </ul>
-
-
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -105,9 +100,9 @@
         </nav>
 
         <main class="py-4">
-          @if (session('alert'))
+          @if (session('error'))
             <div class="alert alert-success">
-                {{ session('alert') }}
+                {{ session('error') }}
             </div>
           @endif
 
