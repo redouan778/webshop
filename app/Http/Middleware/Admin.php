@@ -14,10 +14,11 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-
-            if(/*Auth::user() && */Auth::user()->isAdmin == 'yes'){
-            return $next($request);
-        }
+            if(Auth::check() == true){
+                if(Auth::user()->isAdmin == 'yes'){
+                return $next($request);
+                }
+            }
             return redirect('/error')->with('error', 'You have not admin access');
     }
 }

@@ -44,8 +44,7 @@ class ProductController extends Controller
         $request->validate([
             'name'=>'required',
             'description'=>'required',
-            'price'=>'required|numericd',
-
+            'price'=>'required|numeric',
         ]);
 
         $product = new Product([
@@ -57,7 +56,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect('/adminPanel');
+        return redirect('/allProducts');
 
     }
 
@@ -81,9 +80,9 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
+        $product = Product::find($id);
 
-        return view('categories.edit',compact('category'));
+        return view('products.edit',compact('product'));
     }
 
     /**
@@ -96,16 +95,21 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'=>'required'
+            'name'=>'required',
+            'description'=>'required',
+            'price'=>'required'
         ]);
 
-        $category = Category::find($id);
+        $product = Product::find($id);
 
-        $category->name = $request->name;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
 
-        $category->save();
 
-        return redirect('/adminPanel');
+        $product->save();
+
+        return redirect('/allProducts');
     }
 
     /**
@@ -116,10 +120,10 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $Product = Product::find($id);
+        $product = Product::find($id);
 
-        $Product->delete();
+        $product->delete();
 
-        return redirect('/adminPanel');
+        return redirect('/allProducts');
     }
 }

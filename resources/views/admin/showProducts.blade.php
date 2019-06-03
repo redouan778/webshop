@@ -15,7 +15,11 @@
                                 <h5 class="card-title">{{$product->name}}</h5>
                                 <p class="card-text">{{$product->description}}</p>
                                 <p class="card-text">€ {{$product->price}}</p>
-                                <a href="{{ route('AddToShoppingCart', $product->id) }}" class="btn btn-primary">Add Product to Cart</a>
+                                <form action="{{ route('products.edit', $product->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    {{ method_field('GET') }}
+                                    <button class="btn btn-success btn-sm"><i class="fa fa-wrench"></i></button>
+                                </form>
                                 <form action="{{route('products.destroy',  $product->id)}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
