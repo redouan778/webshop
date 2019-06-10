@@ -26,9 +26,13 @@ Route::resource('categories', 'CategoryController');
 //Category routes
 Route::get('/shoppingCart', 'CartController@index')->name('shoppingCart');
 Route::get('/category/{id}', 'CategoryController@show')->name('category');
+
+//CartController routes
 Route::get('/shoppingCart/{id}', 'CartController@AddToCart')->name('AddToShoppingCart');
 Route::get('/deleteOneProduct/{id}', 'CartController@removeFromCart')->name('deleteOneProduct');
 Route::get('/deleteAllProducts', 'CartController@deleteAllProducts')->name('deleteAllProducts');
+Route::get('/checkout', 'OrderController@checkout')->name('checkout')->middleware('auth');
+
 
 //Admin controller
 Route::get('/adminPanel', 'AdminController@index')->name('adminPanel')->middleware('admin');

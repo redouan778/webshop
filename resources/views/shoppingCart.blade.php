@@ -17,6 +17,7 @@
     <div class="container">
         @if(is_array($products))
 
+
         <table id="cart" class="table table-hover table-condensed">
             <thead>
             <tr>
@@ -28,7 +29,8 @@
             </thead>
             <tbody>
                 <tr>
-                    @foreach($products as $product)
+
+                @foreach($products as $product)
                         <td data-th="Product">
                             <div class="row">
                                 <div class="col-sm-2 hidden-xs"><img src="http://placehold.it/100x100" alt="..." class="img-responsive"/></div>
@@ -59,7 +61,7 @@
                             Delete All Products
                         </a></td>
                     <td class="hidden-xs text-center"><strong>€ {{$totalPrice}},-</strong></td>
-                    <td><a href="https://www.paypal.com/webapps/hermes?token=5EY097812P7754247&useraction=commit&mfid=1546377013907_cf1dec6830d7" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+                    <td><a href="{{route('checkout')}}" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
                 </tr>
             </tfoot>
         </table>

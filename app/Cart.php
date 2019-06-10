@@ -15,6 +15,7 @@ class Cart
     {
         $found = false;     // $found = default boolean to check if the cart is already in the cart.
         $items = session('cart');
+
         if (is_array($items)) {     // Check if it is an array, if that is the case the if-statement will be done.
             foreach ($items as $key => $item) {
                 if ($item['id'] === $id) {

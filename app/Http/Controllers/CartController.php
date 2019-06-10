@@ -2,8 +2,10 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
+use auth;
 
 class CartController extends Controller
 {
@@ -18,8 +20,6 @@ class CartController extends Controller
     public function index()
     {
         $items = $this->cart->show();
-        $leeg = 'Winkelkar is leeg';
-
 
         if (is_array($items)) {
             foreach ($items as $item) {
@@ -27,17 +27,15 @@ class CartController extends Controller
                 $product['quantity'] = $item['quantity'];
                 $products[] = $product;
             }
-        }else{
-            $leeg;
         }
-        return view('shoppingCart', compact('products', 'leeg'));
+        return view('shoppingCart', compact('products'));
     }
 
     //Add a product to cart.
     public function addToCart($id, $amount=1)
     {
         $this->cart->add($id, $amount);
-        return redirect('/shoppingCart');
+        return redirect('shoppingCart');
     }
 
     //Delete an individual product in the cart.
