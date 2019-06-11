@@ -18,8 +18,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
-//, ['except' => array('index', 'admin')]
+//        $this->middleware('auth', ['except' => array('index', 'admin')]);
     }
 
     /**
