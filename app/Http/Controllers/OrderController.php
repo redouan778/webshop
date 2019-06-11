@@ -5,9 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use auth;
 use App\Order;
-use App\Product;
-use App\User;
-
 
 class OrderController extends Controller
 {
@@ -26,6 +23,6 @@ class OrderController extends Controller
 
         session()->forget('cart');
 
-        return view('checkout', compact('orders'));
+        return view('checkout');
     }
 }
